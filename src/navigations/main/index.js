@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Button, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 function HomeScreen({ navigation }) {
@@ -48,7 +47,7 @@ function SettingsScreen({ navigation }) {
 
 const Stack = createStackNavigator();
 
-export default function MyStack() {
+export default function PostStack() {
     
   return (
     <Stack.Navigator>
@@ -59,11 +58,3 @@ export default function MyStack() {
     </Stack.Navigator>
   );
 }
-
-/*export default function MainNavigation() {
-  return (
-    <NavigationContainer>
-      <MyStack />
-    </NavigationContainer>
-  );
-}*/
