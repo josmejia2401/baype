@@ -9,5 +9,6 @@ export function getDimentions () {
         height: windowHeight,
         width2: windowWidth/2,
         height2: windowHeight/2,
+        widthWithoutMargin: windowWidth - 16,
     }
 }

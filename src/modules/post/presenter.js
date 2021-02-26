@@ -13,7 +13,7 @@ const Presenter = (props) => {
         data={images}
         renderItem={({item}) => {
           return (
-            <ResourcePostComponent {...props} items={item.items} title={item.title}></ResourcePostComponent>
+            <ResourcePostComponent {...props} items={item.items} title={item.title} username={item.username} createdAt={item.createdAt}></ResourcePostComponent>
           );
         }}
       />

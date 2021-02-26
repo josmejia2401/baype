@@ -22,7 +22,9 @@ class Container extends React.Component {
     const images = [
       {
         id: 1,
-        title: 'titulo',
+        title: 'flexDirection: If you want to move horizontally (row) or vertically (column)',
+        createdAt: new Date,
+        username: 'username',
         items: [
           {
             id: 11,
@@ -36,7 +38,9 @@ class Container extends React.Component {
       },
       {
         id: 2,
-        title: 'titulo',
+        title: 'This Gig Take a glance at the showcase of our artistic work: Modern and Trendy Logo Artworkslkjfkljf ksnfksfnsf Mascot & Custom Logo efdfg Artworks:lk knnk Explore the ultimate Experience..! To fulfill your designing needs, Make us Graphically Yours...!! Why Team StrideInIt? We believe in our',
+        username: 'username',
+        createdAt: new Date,
         items: [
           {
             id: 21,
@@ -47,6 +51,7 @@ class Container extends React.Component {
       {
         id: 3,
         title: 'titulo',
+        username: 'username',createdAt: new Date,
         items: [
           {
             id: 31,
@@ -56,7 +61,7 @@ class Container extends React.Component {
       },
       {
         id: 4,
-        title: 'titulo',
+        title: 'titulo',username: 'username',createdAt: new Date,
         items: [
           {
             id: 41,
@@ -66,7 +71,7 @@ class Container extends React.Component {
       },
       {
         id: 5,
-        title: 'titulo',
+        title: 'titulo',username: 'username',createdAt: new Date,
         items: [
           {
             id: 51,
@@ -76,7 +81,7 @@ class Container extends React.Component {
       },
       {
         id: 6,
-        title: 'titulo',
+        title: 'titulo',username: 'username',createdAt: new Date,
         items: [
           {
             id: 61,
@@ -86,7 +91,7 @@ class Container extends React.Component {
       },
       {
         id: 7,
-        title: 'titulo',
+        title: 'titulo',username: 'username',createdAt: new Date,
         items: [
           {
             id: 71,
@@ -96,7 +101,7 @@ class Container extends React.Component {
       },
       {
         id: 8,
-        title: 'titulo',
+        title: 'titulo',username: 'username',createdAt: new Date,
         items: [
           {
             id: 81,
@@ -106,7 +111,7 @@ class Container extends React.Component {
       },
       {
         id: 9,
-        title: 'titulo',
+        title: 'titulo',username: 'username',createdAt: new Date,
         items: [
           {
             id: 91,
@@ -116,7 +121,7 @@ class Container extends React.Component {
       },
       {
         id: 10,
-        title: 'titulo',
+        title: 'titulo',username: 'username',createdAt: new Date,
         items: [
           {
             id: 101,
@@ -126,7 +131,7 @@ class Container extends React.Component {
       },
       {
         id: 11,
-        title: 'titulo',
+        title: 'titulo',username: 'username',createdAt: new Date,
         items: [
           {
             id: 1141,
@@ -136,7 +141,7 @@ class Container extends React.Component {
       },
       {
         id: 12,
-        title: 'titulo',
+        title: 'titulo',username: 'username',createdAt: new Date,
         items: [
           {
             id: 121,
@@ -146,7 +151,7 @@ class Container extends React.Component {
       },
       {
         id: 134,
-        title: 'titulo',
+        title: 'titulo',username: 'username',createdAt: new Date,
         items: [
           {
             id: 1341,
@@ -156,7 +161,7 @@ class Container extends React.Component {
       },
       {
         id: 14,
-        title: 'titulo',
+        title: 'titulo',username: 'username',createdAt: new Date,
         items: [
           {
             id: 141,
@@ -166,7 +171,7 @@ class Container extends React.Component {
       },
       {
         id: 154,
-        title: 'titulo',
+        title: 'titulo',username: 'username',createdAt: new Date,
         items: [
           {
             id: 1541,
@@ -176,7 +181,7 @@ class Container extends React.Component {
       },
       {
         id: 16,
-        title: 'titulo',
+        title: 'titulo',username: 'username',createdAt: new Date,
         items: [
           {
             id: 1641,
