@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, StyleSheet,  } from 'react-native';
+import { getComponentKey } from '../../utils/random';
 
 class Container extends React.Component {
   
@@ -19,7 +20,7 @@ class Container extends React.Component {
 
   render() {
     const { style } = this.props;
-    return ( <View style={[styles.container, style]}/> );
+    return ( <View key={getComponentKey()} style={[styles.container, style]}/> );
   }
 }
 const styles = StyleSheet.create({

@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Image } from 'react-native';
 import { Image as ImageWithCache } from 'react-native-expo-image-cache';
-import { getRandom } from '../../utils/random';
+import { getComponentKey } from '../../utils/random';
 //se usa
 const preview = {
   uri: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=',
@@ -15,9 +15,9 @@ class ImageComponent extends PureComponent {
     }
     const remoteFile = uri.startsWith('http') ? true : false;
     if (remoteFile) {
-      return (<ImageWithCache key={ () => getRandom() } {...this.props} {...{ preview, uri: uri } } />);
+      return (<ImageWithCache key={ getComponentKey } {...this.props} {...{ preview, uri: uri } } />);
     } else {
-      return (<Image key={ () => getRandom() } {...this.props} source={{ uri: uri }} />);
+      return (<Image key={ getComponentKey } {...this.props} source={{ uri: uri }} />);
     }
   }
 }

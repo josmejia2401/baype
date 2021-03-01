@@ -1,12 +1,15 @@
 import React from 'react';
 import Presenter from './presenter';
+import { getDimentions } from '../../utils/dimensions';
 
 class Container extends React.Component {
   
   constructor(props) {
     super(props);
     this.state = {
-      images: []
+      images: [],
+      loading: false,
+      dimentions: getDimentions()
     }
   }
 
@@ -32,7 +35,7 @@ class Container extends React.Component {
           },
           {
             id: 12,
-            uri: 'https://concepto.de/wp-content/uploads/2015/03/software-1-e1550080097569.jpg'
+            uri: 'https://stream-5.zonarutoppuden.tv/ns-sub/1.mp4'
           }
         ]
       },
@@ -44,7 +47,7 @@ class Container extends React.Component {
         items: [
           {
             id: 21,
-            uri: 'https://concepto.de/wp-content/uploads/2015/03/software-1-e1550080097569.jpg'
+            uri: 'https://stream-5.zonarutoppuden.tv/ns-sub/1.mp4'
           }
         ]
       },
@@ -55,7 +58,7 @@ class Container extends React.Component {
         items: [
           {
             id: 31,
-            uri: 'https://concepto.de/wp-content/uploads/2015/03/software-1-e1550080097569.jpg'
+            uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4'
           }
         ]
       },
@@ -193,8 +196,35 @@ class Container extends React.Component {
     this.setState({ images: images });
   }
 
+  _handleOnRefresh () {
+
+  }
+
+  _handleLoadMore = (e) => {
+
+  }
+  
+  _onViewableItemsChanged = ({ viewableItems, changed }) => {
+    //console.log("Visible items are", viewableItems);
+    //console.log("Changed in this iteration", changed);
+    this._handleOnRefreshItem(changed);
+  }
+
+  _handleOnRefreshItem = async (data) => {
+    if (data && data.length > 0) {
+      const currentData = data[0];
+      await new Promise(r => setTimeout(r, 2000));
+      //console.log(currentData);
+    }
+  }
   render() {
-    return <Presenter {...this.props} state={this.state} />;
+    return (<Presenter 
+      {...this.props} 
+      state={this.state} 
+      _handleLoadMore={this._handleLoadMore} 
+      _onViewableItemsChanged={this._onViewableItemsChanged}
+      _handleOnRefresh={this._handleOnRefresh}
+    />);
   }
 }
 export default Container;

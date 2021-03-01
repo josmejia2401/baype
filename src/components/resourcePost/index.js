@@ -1,13 +1,15 @@
-import React , {useCallback} from 'react';
-import { FlatList, View, Image, TouchableWithoutFeedback, StyleSheet, RefreshControl, Text } from 'react-native';
-import { getDimentions } from '../../utils/dimensions';
+import * as React from 'react';
+import { FlatList, View, Image, TouchableWithoutFeedback, StyleSheet, Text } from 'react-native';
+import { Video } from 'expo-av';
+//Componentes
 import AvatarWithUsernameComponent from '../../components/avatarWithUsername';
 import SeparatorComponent from '../separator';
-import { getRandom } from '../../utils/random';
+//Utilidades
+import { getDimentions } from '../../utils/dimensions';
+import { getComponentKey } from '../../utils/random';
+import { isImage } from '../../utils/file';
 
-
-
-class Container extends React.Component {
+class Container extends React.PureComponent {
   
   constructor(props) {
     super(props);
@@ -16,8 +18,16 @@ class Container extends React.Component {
         loading: false,
         textShown: false,
         numLines: 1,
-        showMoreButton: false
+        showMoreButton: false,
     }
+    this.videoRef = null;
+    this.setVideoRef = (element) => {
+      this.videoRef = element;
+      if (this.videoRef && this.videoRef.current) {
+        this.videoRef.current.pauseAsync();
+        console.log("pausando...");
+      }
+    };
   }
 
   componentDidMount() {
@@ -27,6 +37,7 @@ class Container extends React.Component {
     }
     const { items, title, username, createdAt } = this.props;
     this.onTextLayout(title);
+    //const videoRef = React.useRef(null);
   }
 
   toggleNumberOfLines = index => {
@@ -34,12 +45,6 @@ class Container extends React.Component {
       textShown: this.state.textShown === index ? -1 : index,
     });
   };
-
-
-  onRefresh () {
-
-  }
-
 
   onTextLayout = (title) => {
     if (title && title.length > 250) {
@@ -55,10 +60,21 @@ class Container extends React.Component {
       this.setState({ numLines: numLines, textShown: !this.state.textShown});
     }
   }
-  
+
+  _onViewableItemsChanged = ({ viewableItems, changed }) => {
+    if (changed && changed.length > 0) {
+      const currentData = changed[0];
+      //this.videoRef.current.playAsync();
+      if(this.videoRef && this.videoRef.current) {
+        this.videoRef.current.pauseAsync();
+      }
+    }
+  }
+
   render() {
     const { items, title, username, createdAt } = this.props;
-    const { dimentions, loading, numLines, showMoreButton, textShown } = this.state;
+    const { dimentions, numLines, showMoreButton, textShown } = this.state;
+    const totalItemWidth = dimentions.width;
     return (
     <View style={styles.container}> 
       <AvatarWithUsernameComponent
@@ -73,49 +89,63 @@ class Container extends React.Component {
         style={{margin: 8, marginTop: 4, marginBottom: 4}}>{title}</Text>
         { showMoreButton ? ( <Text onPress={(e) => this.onPressViewAllTitle(e) } style={{margin: 8, marginTop: 4, marginBottom: 4}}> { textShown ? 'Read Less' : 'Read More' } </Text> ) : null }
       <FlatList
-        key={ () => getRandom() }
-        horizontal={true} 
-        showsHorizontalScrollIndicator={false} 
+        key={  getComponentKey }
         data={items}
         renderItem={ ({ item, index, separators }) => (
           <TouchableWithoutFeedback
-            key={ () => getRandom() }
+            key={ getComponentKey }
             onShowUnderlay={separators.highlight}
             onHideUnderlay={separators.unhighlight}>
             <View style={{ backgroundColor: 'white' }}>
-              <Image 
-                key={ item.id }
-                source={{ uri: item.uri }}
-                key={index}
-                style={{
-                  width: dimentions.widthWithoutMargin - 16,
-                  height: dimentions.height2,
-                  borderWidth: 1,
-                  resizeMode:'stretch',
-                  margin:8
-                }}
-              />
+              { isImage(item.uri) ? 
+              (
+                <Image 
+                  key={ item.id.toString() }
+                  source={{ uri: item.uri }}
+                  style={{
+                    width: dimentions.widthWithoutMargin - 16,
+                    height: dimentions.height2,
+                    borderWidth: 1,
+                    resizeMode:'stretch',
+                    margin:8
+                  }}
+                />
+              ) : 
+              (
+                <Video
+                  ref={ this.setVideoRef }
+                  key={ item.id.toString() }
+                  style={{
+                    width: dimentions.widthWithoutMargin - 16,
+                    height: dimentions.height2,
+                    resizeMode:'stretch',
+                    margin:8
+                  }}
+                  source={{ uri: item.uri }}
+                  isLooping={false}
+                  rate={1.0}
+                  isMuted={false}
+                  useNativeControls={true}
+                  volume={1.0}
+                  playsInSilentLockedModeIOS ={false}
+                  resizeMode='cover' 
+                  shouldPlay={false} 
+                  usePoster={false}
+                  posterSource={{uri: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='}}
+                  //onPlaybackStatusUpdate={status => setStatus(() => status)}
+                />
+              )
+              } 
               <SeparatorComponent state={{}}></SeparatorComponent>
             </View>
           </TouchableWithoutFeedback>
         )}
-        //getItemCount={data => data.length}
-        refreshControl={
-          <RefreshControl
-            colors={['#9Bd35A', '#689F38']}
-            refreshing={loading}
-            onRefresh={this.onRefresh}
-          />
-        }
-        initialNumberToRender={8}
-        initialNumToRender={8}
-        maxToRenderPerBatch={2}
-        updateCellsBatchingPeriod={15}
-        windowSize={10}
-        initialScrollIndex={0}
-        onScrollToIndexFailed={() => { }}
-        onEndReachedThreshold={0.5}
-
+        horizontal={true} 
+        showsHorizontalScrollIndicator={true} 
+        bounces={false}
+        decelerationRate='fast'
+        getItemLayout={(data, index) => ({ length: totalItemWidth, offset: totalItemWidth * index, index, })}
+        onViewableItemsChanged={this._onViewableItemsChanged}
       />
     </View>
     );
