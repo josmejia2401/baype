@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { FlatList, View, Image, TouchableWithoutFeedback, StyleSheet, Text } from 'react-native';
-import { Video } from 'expo-av';
+//import { Video } from 'expo-av';
 //Componentes
 import AvatarWithUsernameComponent from '../../components/avatarWithUsername';
 import SeparatorComponent from '../separator';
+import VideoComponent from '../video/index';
 //Utilidades
 import { getDimentions } from '../../utils/dimensions';
 import { getComponentKey } from '../../utils/random';
@@ -19,15 +20,8 @@ class Container extends React.PureComponent {
         textShown: false,
         numLines: 1,
         showMoreButton: false,
+        currentIndex: 0
     }
-    this.videoRef = null;
-    this.setVideoRef = (element) => {
-      this.videoRef = element;
-      if (this.videoRef && this.videoRef.current) {
-        this.videoRef.current.pauseAsync();
-        console.log("pausando...");
-      }
-    };
   }
 
   componentDidMount() {
@@ -35,9 +29,8 @@ class Container extends React.PureComponent {
     if (onLoad) {
       onLoad();
     }
-    const { items, title, username, createdAt } = this.props;
+    const { title } = this.props;
     this.onTextLayout(title);
-    //const videoRef = React.useRef(null);
   }
 
   toggleNumberOfLines = index => {
@@ -62,18 +55,18 @@ class Container extends React.PureComponent {
   }
 
   _onViewableItemsChanged = ({ viewableItems, changed }) => {
-    if (changed && changed.length > 0) {
-      const currentData = changed[0];
-      //this.videoRef.current.playAsync();
-      if(this.videoRef && this.videoRef.current) {
-        this.videoRef.current.pauseAsync();
-      }
+    if (viewableItems && viewableItems.length > 0) {
+      const index = viewableItems.length > 1 ? 1 : 0;
+      const currentData = viewableItems[index];
+      this.setState({currentIndex: currentData.index});
+    } else {
+      this.setState({currentIndex: -1});
     }
   }
 
   render() {
-    const { items, title, username, createdAt } = this.props;
-    const { dimentions, numLines, showMoreButton, textShown } = this.state;
+    const { items, title, username, createdAt, currentIndexParent, shouldPlayParent } = this.props;
+    const { dimentions, numLines, showMoreButton, textShown, currentIndex } = this.state;
     const totalItemWidth = dimentions.width;
     return (
     <View style={styles.container}> 
@@ -89,14 +82,14 @@ class Container extends React.PureComponent {
         style={{margin: 8, marginTop: 4, marginBottom: 4}}>{title}</Text>
         { showMoreButton ? ( <Text onPress={(e) => this.onPressViewAllTitle(e) } style={{margin: 8, marginTop: 4, marginBottom: 4}}> { textShown ? 'Read Less' : 'Read More' } </Text> ) : null }
       <FlatList
-        key={  getComponentKey }
+        key={  () => getComponentKey() }
         data={items}
         renderItem={ ({ item, index, separators }) => (
           <TouchableWithoutFeedback
-            key={ getComponentKey }
+            key={ () => getComponentKey() }
             onShowUnderlay={separators.highlight}
             onHideUnderlay={separators.unhighlight}>
-            <View style={{ backgroundColor: 'white' }}>
+            <View key={ () => getComponentKey() } style={{ backgroundColor: 'white' }}>
               { isImage(item.uri) ? 
               (
                 <Image 
@@ -112,8 +105,8 @@ class Container extends React.PureComponent {
                 />
               ) : 
               (
-                <Video
-                  ref={ this.setVideoRef }
+                <VideoComponent
+                  //ref={(ref) => (this.videoRef = ref)}
                   key={ item.id.toString() }
                   style={{
                     width: dimentions.widthWithoutMargin - 16,
@@ -129,10 +122,9 @@ class Container extends React.PureComponent {
                   volume={1.0}
                   playsInSilentLockedModeIOS ={false}
                   resizeMode='cover' 
-                  shouldPlay={false} 
+                  shouldPlay={shouldPlayParent && (currentIndex === index)}
                   usePoster={false}
                   posterSource={{uri: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='}}
-                  //onPlaybackStatusUpdate={status => setStatus(() => status)}
                 />
               )
               } 

@@ -9,15 +9,15 @@ const preview = {
 
 class ImageComponent extends PureComponent {
   render() {
-    const { uri } = this.props;
+    const { uri, key } = this.props;
     if (!uri) {
         return null;
     }
     const remoteFile = uri.startsWith('http') ? true : false;
     if (remoteFile) {
-      return (<ImageWithCache key={ getComponentKey } {...this.props} {...{ preview, uri: uri } } />);
+      return (<ImageWithCache key={() => getComponentKey()} {...this.props} {...{ preview, uri: uri } } />);
     } else {
-      return (<Image key={ getComponentKey } {...this.props} source={{ uri: uri }} />);
+      return (<Image key={() => getComponentKey()} {...this.props} source={{ uri: uri }} />);
     }
   }
 }

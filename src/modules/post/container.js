@@ -1,6 +1,5 @@
 import React from 'react';
 import Presenter from './presenter';
-import { getDimentions } from '../../utils/dimensions';
 
 class Container extends React.Component {
   
@@ -9,7 +8,7 @@ class Container extends React.Component {
     this.state = {
       images: [],
       loading: false,
-      dimentions: getDimentions()
+      currentIndex: 0,
     }
   }
 
@@ -36,6 +35,14 @@ class Container extends React.Component {
           {
             id: 12,
             uri: 'https://stream-5.zonarutoppuden.tv/ns-sub/1.mp4'
+          },
+          {
+            id: 13,
+            uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4'
+          },
+          {
+            id: 14,
+            uri: 'https://stream-5.zonarutoppuden.tv/ns-sub/1.mp4'
           }
         ]
       },
@@ -48,6 +55,10 @@ class Container extends React.Component {
           {
             id: 21,
             uri: 'https://stream-5.zonarutoppuden.tv/ns-sub/1.mp4'
+          },
+          {
+            id: 22,
+            uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4'
           }
         ]
       },
@@ -205,16 +216,15 @@ class Container extends React.Component {
   }
   
   _onViewableItemsChanged = ({ viewableItems, changed }) => {
-    //console.log("Visible items are", viewableItems);
-    //console.log("Changed in this iteration", changed);
-    this._handleOnRefreshItem(changed);
+    this._handleOnRefreshItem(viewableItems);
   }
 
   _handleOnRefreshItem = async (data) => {
     if (data && data.length > 0) {
       const currentData = data[0];
-      await new Promise(r => setTimeout(r, 2000));
-      //console.log(currentData);
+      this.setState({ currentIndex: currentData.index});
+    } else {
+      this.setState({currentIndex: -1});
     }
   }
   render() {

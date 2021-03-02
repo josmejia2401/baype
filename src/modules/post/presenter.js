@@ -7,31 +7,34 @@ import styles from './style';
 
 const Presenter = (props) => {
   const { state, _onViewableItemsChanged, _handleLoadMore, _handleOnRefresh } = props;
-  const { images, dimentions, loading } = state;
-  //const totalItemWidth = dimentions.width;
-
+  const { images, loading, currentIndex } = state;
   return (
     <View style={styles.container}>
       <FlatList
-        key={  getComponentKey }
+        key={  () => getComponentKey() }
         data={images}
-        renderItem={({item}) => {
+        renderItem={({item, index}) => {
           return (
-            <ResourcePostComponent {...props} items={item.items} title={item.title} username={item.username} createdAt={item.createdAt}></ResourcePostComponent>
+            <ResourcePostComponent 
+              items={item.items} 
+              currentIndexParent={currentIndex} 
+              title={item.title} 
+              username={item.username} 
+              createdAt={item.createdAt}
+              shouldPlayParent={currentIndex === index}
+            >
+            </ResourcePostComponent>
           );
         }}
         refreshControl={
           <RefreshControl
+            key={ () => getComponentKey() }
             colors={['#9Bd35A', '#689F38']}
             refreshing={loading}
             onRefresh={_handleOnRefresh}
-          />
+          /> 
         }
         showsVerticalScrollIndicator={false}
-        //snapToInterval={totalItemWidth}
-        //bounces={false}
-        //decelerationRate='fast'
-        //getItemLayout={(data, index) => ({ length: totalItemWidth, offset: totalItemWidth * index, index, })}
         initialNumToRender={10}
         maxToRenderPerBatch={10}
         updateCellsBatchingPeriod={50}
@@ -43,7 +46,7 @@ const Presenter = (props) => {
         onEndReached={_handleLoadMore}
         keyboardShouldPersistTaps='always'
         onViewableItemsChanged={_onViewableItemsChanged}
-        //viewabilityConfig={{ itemVisiblePercentThreshold: 50  }}
+        viewabilityConfig={{ itemVisiblePercentThreshold: 50 }}
       />
     </View>
   );

@@ -20,7 +20,7 @@ class Container extends React.Component {
 
   render() {
     const { style } = this.props;
-    return ( <View key={getComponentKey()} style={[styles.container, style]}/> );
+    return ( <View key={() => getComponentKey()} style={[styles.container, style]}/> );
   }
 }
 const styles = StyleSheet.create({
