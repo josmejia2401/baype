@@ -4,6 +4,12 @@
     "slug": "baype-app",
     "version": "1.0.0",
     "orientation": "portrait",
+    "owner": "",
+    "sdkVersion": "",
+    "platforms": ["ios", "android"],
+    "githubUrl": "",
+    "backgroundColor": "#ffffff",
+    "primaryColor": "#000000",
     "icon": "./assets/images/icon.png",
     "splash": {
       "image": "./assets/images/splash.png",
@@ -17,12 +23,16 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": false,
+      "bundleIdentifier" : "co.com.su9.baype",
+      "infoPlist": ""
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "backgroundColor": "#FFFFFF",
+        "package": "co.com.su9.baype",
+      "permissions": ["CAMERA", "ACCESS_FINE_LOCATION", "WRITE_EXTERNAL_STORAGE"]
       }
     },
     "web": {

@@ -5,6 +5,7 @@ import { FlatList, View, Image, TouchableWithoutFeedback, StyleSheet, Text } fro
 import AvatarWithUsernameComponent from '../../components/avatarWithUsername';
 import SeparatorComponent from '../separator';
 import VideoComponent from '../video/index';
+import IconComponent from '../icon';
 //Utilidades
 import { getDimentions } from '../../utils/dimensions';
 import { getComponentKey } from '../../utils/random';
@@ -20,7 +21,8 @@ class Container extends React.PureComponent {
         textShown: false,
         numLines: 1,
         showMoreButton: false,
-        currentIndex: 0
+        currentIndex: 0,
+        countLike: 0
     }
   }
 
@@ -54,6 +56,11 @@ class Container extends React.PureComponent {
     }
   }
 
+  _handleOnPressLike = (e) => {
+    console.log(this.state.countLike);
+    this.setState({countLike: this.state.countLike + 1});
+  }
+
   _onViewableItemsChanged = ({ viewableItems, changed }) => {
     if (viewableItems && viewableItems.length > 0) {
       const index = viewableItems.length > 1 ? 1 : 0;
@@ -66,7 +73,7 @@ class Container extends React.PureComponent {
 
   render() {
     const { items, title, username, createdAt, currentIndexParent, shouldPlayParent } = this.props;
-    const { dimentions, numLines, showMoreButton, textShown, currentIndex } = this.state;
+    const { dimentions, numLines, showMoreButton, textShown, currentIndex, countLike } = this.state;
     const totalItemWidth = dimentions.width;
     return (
     <View style={styles.container}> 
@@ -91,43 +98,52 @@ class Container extends React.PureComponent {
             onHideUnderlay={separators.unhighlight}>
             <View key={ () => getComponentKey() } style={{ backgroundColor: 'white' }}>
               { isImage(item.uri) ? 
-              (
-                <Image 
-                  key={ item.id.toString() }
-                  source={{ uri: item.uri }}
-                  style={{
-                    width: dimentions.widthWithoutMargin - 16,
-                    height: dimentions.height2,
-                    borderWidth: 1,
-                    resizeMode:'stretch',
-                    margin:8
-                  }}
-                />
-              ) : 
-              (
-                <VideoComponent
-                  //ref={(ref) => (this.videoRef = ref)}
-                  key={ item.id.toString() }
-                  style={{
-                    width: dimentions.widthWithoutMargin - 16,
-                    height: dimentions.height2,
-                    resizeMode:'stretch',
-                    margin:8
-                  }}
-                  source={{ uri: item.uri }}
-                  isLooping={false}
-                  rate={1.0}
-                  isMuted={false}
-                  useNativeControls={true}
-                  volume={1.0}
-                  playsInSilentLockedModeIOS ={false}
-                  resizeMode='cover' 
-                  shouldPlay={shouldPlayParent && (currentIndex === index)}
-                  usePoster={false}
-                  posterSource={{uri: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='}}
-                />
-              )
-              } 
+                (
+                  <Image 
+                    key={ item.id.toString() }
+                    source={{ uri: item.uri }}
+                    style={{
+                      width: dimentions.widthWithoutMargin - 16,
+                      height: dimentions.height2,
+                      borderWidth: 1,
+                      resizeMode:'stretch',
+                      margin:8
+                    }}
+                  />
+                ) : 
+                (
+                  <VideoComponent
+                    //ref={(ref) => (this.videoRef = ref)}
+                    key={ item.id.toString() }
+                    style={{
+                      width: dimentions.widthWithoutMargin - 16,
+                      height: dimentions.height2,
+                      resizeMode:'stretch',
+                      margin:8
+                    }}
+                    source={{ uri: item.uri }}
+                    isLooping={false}
+                    rate={1.0}
+                    isMuted={false}
+                    useNativeControls={true}
+                    volume={1.0}
+                    playsInSilentLockedModeIOS ={false}
+                    resizeMode='cover' 
+                    shouldPlay={shouldPlayParent && (currentIndex === index)}
+                    usePoster={true}
+                    posterSource={{uri: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='}}
+                  />
+                )
+              }
+              <IconComponent 
+                countLike={countLike}
+                name={'thumb-up'} 
+                size={32} 
+                color={'black'} 
+                callback={this._handleOnPressLike.bind(this)}
+                style={{
+                  margin:8
+                }}></IconComponent>
               <SeparatorComponent state={{}}></SeparatorComponent>
             </View>
           </TouchableWithoutFeedback>
