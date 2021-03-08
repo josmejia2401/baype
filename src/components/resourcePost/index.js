@@ -5,7 +5,7 @@ import { FlatList, View, Image, TouchableWithoutFeedback, StyleSheet, Text } fro
 import AvatarWithUsernameComponent from '../../components/avatarWithUsername';
 import SeparatorComponent from '../separator';
 import VideoComponent from '../video/index';
-import IconComponent from '../icon';
+import LikePostComponent from '../likePost';
 //Utilidades
 import { getDimentions } from '../../utils/dimensions';
 import { getComponentKey } from '../../utils/random';
@@ -21,8 +21,7 @@ class Container extends React.PureComponent {
         textShown: false,
         numLines: 1,
         showMoreButton: false,
-        currentIndex: 0,
-        countLike: 0
+        currentIndex: 0
     }
   }
 
@@ -54,11 +53,6 @@ class Container extends React.PureComponent {
       const numLines = this.state.textShown === true ? 3 : 0;
       this.setState({ numLines: numLines, textShown: !this.state.textShown});
     }
-  }
-
-  _handleOnPressLike = (e) => {
-    console.log(this.state.countLike);
-    this.setState({countLike: this.state.countLike + 1});
   }
 
   _onViewableItemsChanged = ({ viewableItems, changed }) => {
@@ -135,15 +129,7 @@ class Container extends React.PureComponent {
                   />
                 )
               }
-              <IconComponent 
-                countLike={countLike}
-                name={'thumb-up'} 
-                size={32} 
-                color={'black'} 
-                callback={this._handleOnPressLike.bind(this)}
-                style={{
-                  margin:8
-                }}></IconComponent>
+              <LikePostComponent></LikePostComponent>
               <SeparatorComponent state={{}}></SeparatorComponent>
             </View>
           </TouchableWithoutFeedback>
