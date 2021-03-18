@@ -1,7 +1,7 @@
 import React from 'react';
 import { Asset } from 'expo-asset';
-import SplashScreen from './src/modules/splash/';
-import MainTab from './src/tabs/main/';
+import SplashScreen from './src/modules/splash/index.js';
+import MainTab from './src/tabs/main/index.js';
 
 
 export default class App extends React.Component {

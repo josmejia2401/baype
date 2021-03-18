@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Button, View } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
+import MapComponent from '../../../components/map/index';
 
 function HomeScreen({ navigation }) {
   return (
@@ -48,10 +49,9 @@ function SettingsScreen({ navigation }) {
 const Stack = createStackNavigator();
 
 export default function HomeStack() {
-    
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="Home" component={MapComponent} />
       <Stack.Screen name="Notifications" component={NotificationsScreen} />
       <Stack.Screen name="Profile" component={ProfileScreen} />
       <Stack.Screen name="Settings" component={SettingsScreen} />

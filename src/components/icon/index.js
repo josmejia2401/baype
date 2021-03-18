@@ -16,7 +16,7 @@ function Container(props) {
     setText(props.text);
     setLoading(props.loading);
     setColor(props.color);
-  });
+  }, [props.text, props.loading, props.color] );
   
   function _handleOnPress (e) {
     if (callback) {
