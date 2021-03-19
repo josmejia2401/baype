@@ -6,7 +6,10 @@
     "orientation": "portrait",
     "owner": "josmejia2401",
     "sdkVersion": "",
-    "platforms": ["ios", "android"],
+    "platforms": [
+      "ios",
+      "android"
+    ],
     "githubUrl": "https://github.com/josmejia2401/baype",
     "backgroundColor": "#ffffff",
     "primaryColor": "#000000",
@@ -24,7 +27,7 @@
     ],
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier" : "co.com.su9.baype",
+      "bundleIdentifier": "co.com.su9.baype",
       "infoPlist": {
         "NSLocationAlwaysUsageDescription": "stuff",
         "NSLocationWhenInUseUsageDescription": "stuff"
@@ -35,7 +38,12 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#FFFFFF",
         "package": "co.com.su9.baype",
-      "permissions": ["CAMERA", "ACCESS_FINE_LOCATION", "WRITE_EXTERNAL_STORAGE", "ACCESS_BACKGROUND_LOCATION"]
+        "permissions": [
+          "CAMERA",
+          "ACCESS_FINE_LOCATION",
+          "WRITE_EXTERNAL_STORAGE",
+          "ACCESS_BACKGROUND_LOCATION"
+        ]
       }
     },
     "web": {

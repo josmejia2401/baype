@@ -1,8 +1,7 @@
 import React from 'react';
 import { Asset } from 'expo-asset';
-import SplashScreen from './src/modules/splash/index.js';
-import MainTab from './src/tabs/main/index.js';
-
+import SplashScreen from './src/modules/Splash/index.js';
+import MainTab from './src/tabs/Main/index.js';
 
 export default class App extends React.Component {
   state = {
@@ -13,13 +12,9 @@ export default class App extends React.Component {
 
   render() {
     if (!this.state.isReady) {
-      return (
-        <SplashScreen onLoad={this._cacheResourcesAsync.bind(this)}/>
-      );
+      return <SplashScreen onLoad={this._cacheResourcesAsync.bind(this)} />;
     }
-    return (
-      <MainTab onLoad={this._cacheResourcesAsync.bind(this)}/>
-    );
+    return <MainTab onLoad={this._cacheResourcesAsync.bind(this)} />;
   }
 
   _cacheSplashResourcesAsync = async () => {
@@ -29,9 +24,9 @@ export default class App extends React.Component {
 
   _cacheResourcesAsync = async () => {
     try {
-      await new Promise(r => setTimeout(r, 2000));
-      const images = [require('./assets/images/favicon.png'),];
-      const cacheImages = images.map(image => {
+      await new Promise((r) => setTimeout(r, 2000));
+      const images = [require('./assets/images/favicon.png')];
+      const cacheImages = images.map((image) => {
         return Asset.fromModule(image).downloadAsync();
       });
       await Promise.all(cacheImages);
