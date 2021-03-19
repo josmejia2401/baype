@@ -1,13 +1,11 @@
 import React from 'react';
-import { View, StyleSheet,  } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { getComponentKey } from '../../utils/random';
 
 class Container extends React.Component {
-  
   constructor(props) {
     super(props);
-    this.state = {
-    }
+    this.state = {};
   }
 
   componentDidMount() {
@@ -17,18 +15,17 @@ class Container extends React.Component {
     }
   }
 
-
   render() {
     const { style } = this.props;
-    return ( <View style={[styles.container, style]}/> );
+    return <View style={[styles.container, style]} />;
   }
 }
 const styles = StyleSheet.create({
   container: {
     height: 1,
-    width: "100%",
+    width: '100%',
     alignSelf: 'center',
-    backgroundColor: "#dcdde1"
+    backgroundColor: '#dcdde1',
   },
 });
 

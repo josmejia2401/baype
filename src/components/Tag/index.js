@@ -1,11 +1,11 @@
 import React from 'react';
-import { TouchableOpacity, View, Text, StyleSheet, Image } from 'react-native';
+import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
 
 export default class Container extends React.Component {
   render() {
     return (
       <TouchableOpacity
-        style={[styles.touchable, ]}
+        style={[styles.touchable]}
         onPress={this.props.handleOnPress}>
         <View style={[styles.view, this.props.style]}>
           <Text style={styles.text}>{this.props.title}</Text>

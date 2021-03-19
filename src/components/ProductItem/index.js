@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FlatList, View, StyleSheet, Text } from 'react-native';
+import { FlatList, View, StyleSheet, Text, ScrollView } from 'react-native';
 //Componentes
 import AvatarWithUsernameComponent from '../../components/AvatarWithUsername';
 import SeparatorComponent from '../Separator';
@@ -100,7 +100,7 @@ class Container extends React.PureComponent {
           uri={
             'https://concepto.de/wp-content/uploads/2015/03/software-1-e1550080097569.jpg'
           }
-          style={{}}
+          style={{ margin: 8, marginBottom: 0, marginTop: 0 }}
           title={username}
           createdAt={createdAt}></AvatarWithUsernameComponent>
         <View style={styles.containerRenderItem}>
@@ -119,24 +119,17 @@ class Container extends React.PureComponent {
                 }}>
                 {item.title}
               </Text>
-              <Text
-                style={{
-                  fontWeight: 'bold',
-                  fontSize: 8,
-                  alignSelf: 'flex-start',
-                  textAlign: 'justify',
-                }}>
-                {dateSince}
-              </Text>
-              <Text
-                style={{
-                  fontWeight: 'bold',
-                  fontSize: 8,
-                  alignSelf: 'flex-start',
-                  textAlign: 'justify',
-                }}>
-                {item.body}
-              </Text>
+              <ScrollView>
+                <Text
+                  style={{
+                    fontWeight: 'bold',
+                    fontSize: 8,
+                    alignSelf: 'flex-start',
+                    textAlign: 'justify',
+                  }}>
+                  {item.body}
+                </Text>
+              </ScrollView>
             </View>
             <View style={styles.containerFooter}>
               <TagComponent
@@ -159,25 +152,33 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     width: getDimentions().width - 16,
     margin: 0,
-    height: getDimentions().height * 0.35,
+    padding: 0,
+    height: getDimentions().height / 3,
   },
   containerRenderItem: {
     flexDirection: 'row',
-    margin: 0,
-    alignItems: 'center',
+    margin: 8,
+    marginTop: 0,
+    paddingTop: 0,
+    marginBottom: 0,
+    paddingBottom: 0,
+    alignSelf: 'stretch',
+    alignContent: 'space-between',
+    justifyContent: 'space-around',
     backgroundColor: 'white',
     width: getDimentions().width,
-    height: getDimentions().height * 0.25,
+    height: getDimentions().height / 4,
   },
   containerSeparator: {
-    marginTop: 16,
+    margin: 0,
+    marginTop: 8,
   },
   image: {
     width: getDimentions().width * 0.3,
-    height: getDimentions().height * 0.25,
+    height: getDimentions().height / 4,
     resizeMode: 'stretch',
-    margin: 8,
-    marginLeft: 0,
+    margin: 0,
+    marginLeft: 4,
     alignSelf: 'flex-start',
     alignContent: 'flex-start',
     justifyContent: 'flex-start',
@@ -190,9 +191,11 @@ const styles = StyleSheet.create({
   containerDetail: {
     flexDirection: 'column',
     width: getDimentions().width * 0.7,
-    height: getDimentions().height * 0.25,
+    height: getDimentions().height / 4,
     margin: 8,
     marginLeft: 0,
+    marginTop: 0,
+    paddingTop: 0,
     alignSelf: 'flex-start',
     alignContent: 'flex-start',
     justifyContent: 'flex-start',
@@ -201,7 +204,8 @@ const styles = StyleSheet.create({
   containerHeader: {
     flexDirection: 'column',
     width: 'auto',
-    //height: getDimentions().height / 5.5,
+    height: getDimentions().height / 6,
+    margin: 8,
     marginRight: 32,
     alignSelf: 'flex-start',
     alignContent: 'flex-start',
@@ -210,16 +214,18 @@ const styles = StyleSheet.create({
   },
   containerFooter: {
     flexDirection: 'row',
+    flex: 1,
     width: 'auto',
     height: 'auto',
     margin: 8,
-    marginBottom: 0,
+    marginRight: 32,
+    marginBottom: 4,
     bottom: 0,
-    marginLeft: 0,
     alignSelf: 'flex-start',
     alignContent: 'flex-start',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
+    position: 'absolute',
   },
 });
 

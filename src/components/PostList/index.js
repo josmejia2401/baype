@@ -1,13 +1,5 @@
 import * as React from 'react';
-import {
-  FlatList,
-  View,
-  Image,
-  TouchableWithoutFeedback,
-  StyleSheet,
-  Text,
-  RefreshControl,
-} from 'react-native';
+import { FlatList, View, StyleSheet, RefreshControl } from 'react-native';
 //Componentes
 import PostItem from '../PostItem/index';
 //Utilidades
@@ -53,7 +45,7 @@ class Container extends React.PureComponent {
           {
             id: 13,
             uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-          }
+          },
         ],
       },
       {
@@ -119,8 +111,7 @@ class Container extends React.PureComponent {
                 title={item.title}
                 username={item.username}
                 createdAt={item.createdAt}
-                shouldPlayParent={this.state.currentIndex === index}>
-                </PostItem>
+                shouldPlayParent={this.state.currentIndex === index}></PostItem>
             );
           }}
           refreshControl={

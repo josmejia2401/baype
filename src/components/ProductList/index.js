@@ -2,10 +2,7 @@ import * as React from 'react';
 import {
   FlatList,
   View,
-  Image,
-  TouchableWithoutFeedback,
   StyleSheet,
-  Text,
   RefreshControl,
 } from 'react-native';
 //Componentes

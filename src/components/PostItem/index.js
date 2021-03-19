@@ -96,23 +96,19 @@ class Container extends React.PureComponent {
           key={item.id.toString()}
           uri={item.uri}
           style={{
-            width: getDimentions().width * 0.9,
+            width: getDimentions().width - 16,
             height: getDimentions().height / 2,
             resizeMode: 'stretch',
-            margin: 8,
           }}></ImageComponent>
-        <PostLikeComponent></PostLikeComponent>
-        <SeparatorComponent state={{}}></SeparatorComponent>
       </View>
     ) : (
       <View style={{ backgroundColor: 'white' }}>
         <VideoComponent
           key={item.id.toString()}
           style={{
-            width: getDimentions().width * 0.9,
+            width: getDimentions().width - 16,
             height: getDimentions().height / 2,
             resizeMode: 'stretch',
-            margin: 8,
           }}
           source={{ uri: item.uri }}
           isLooping={false}
@@ -126,11 +122,12 @@ class Container extends React.PureComponent {
             this.props.shouldPlayParent && this.state.currentIndex === index
           }
           onPlaybackStatusUpdate={this._onPlaybackStatusUpdate}
-          //usePoster={false}
-          //posterSource={{ uri: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=', }}>
-        ></VideoComponent>
-        <PostLikeComponent></PostLikeComponent>
-        <SeparatorComponent state={{}}></SeparatorComponent>
+          usePoster={true}
+          posterSource={{
+            uri:
+              'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=',
+          }}>
+        </VideoComponent>
       </View>
     );
   };
@@ -173,6 +170,8 @@ class Container extends React.PureComponent {
           //getItemLayout={(data, index) => ({ length: totalItemWidth, offset: totalItemWidth * index, index, })}
           onViewableItemsChanged={this._onViewableItemsChanged}
         />
+        <PostLikeComponent></PostLikeComponent>
+        <SeparatorComponent state={{}}></SeparatorComponent>
       </View>
     );
   }
@@ -183,7 +182,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
-    width: getDimentions().widthWithoutMargin,
+    width: getDimentions().width - 16,
   },
 });
 

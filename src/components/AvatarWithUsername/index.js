@@ -4,10 +4,9 @@ import ImageComponent from '../Image';
 import { getTimeSince } from '../../utils/date';
 
 class Container extends React.Component {
-  
   constructor(props) {
     super(props);
-    this.state = {}
+    this.state = {};
   }
 
   componentDidMount() {
@@ -21,26 +20,43 @@ class Container extends React.Component {
     const { uri, style, title, createdAt } = this.props;
     const dateSince = getTimeSince(createdAt);
     return (
-      <View style={{
-        flexDirection: 'row',
-        margin: 0,
-        marginBottom: 0,
-        alignItems: 'center',
-      }}>
-        <ImageComponent style={[styles.avatar, style]} uri={uri} />
+      <View
+        style={[
+          {
+            flexDirection: 'row',
+            alignItems: 'center',
+          },
+          style,
+        ]}>
+        <ImageComponent style={styles.avatar} uri={uri} />
         <View style={{ flexDirection: 'row', width: '100%' }}>
-          <View style={{ flexDirection: 'column', width: '85%'}}>
-            <Text style={{ fontWeight: 'bold', fontSize: 16,  alignSelf: 'flex-start' }}>{title}</Text>
-            <Text style={{ fontWeight: 'bold', fontSize: 8, alignSelf: 'flex-start' }}>{dateSince}</Text>
+          <View style={{ flexDirection: 'column', width: '85%' }}>
+            <Text
+              style={{
+                fontWeight: 'bold',
+                fontSize: 16,
+                alignSelf: 'flex-start',
+              }}>
+              {title}
+            </Text>
+            <Text
+              style={{
+                fontWeight: 'bold',
+                fontSize: 8,
+                alignSelf: 'flex-start',
+              }}>
+              {dateSince}
+            </Text>
           </View>
-          <View style={{ flexDirection: 'row', width: '15%',  }}>
-            <Text style={{ textAlign: 'right', alignContent: 'flex-end', }}>...</Text>
+          <View style={{ flexDirection: 'row', width: '15%' }}>
+            <Text style={{ textAlign: 'right', alignContent: 'flex-end' }}>
+              ...
+            </Text>
           </View>
         </View>
       </View>
     );
   }
-
 }
 const styles = StyleSheet.create({
   avatar: {
@@ -57,6 +73,5 @@ const styles = StyleSheet.create({
     ///margin: 8
   },
 });
-
 
 export default Container;
